@@ -44,5 +44,68 @@ const piecesFilter = pieces.filter(function(piece){
               return piece.prix <= 35;
 })
 console.log(piecesFilter)
+});
+const buttonTrier = document.querySelector(".btn-trier-dec");
+buttonTrier.addEventListener("click",function(){
+    const piecesOrdonnees = Array.from(pieces);
+    piecesOrdonnees.sort(function(a,b){
+        return b.prix - a.prix
+    })
+    console.log(piecesOrdonnees);
+});
+const buttonFilter = document.querySelector(".btn-filtrer-desc");
+buttonFilter.addEventListener("click", function(){
+    const piecesFilter = pieces.filter(function(piece){
+        return piece.description
+    })
+    console.log(piecesFilter);
 })
+
+
+// function Lambda pour map pieces
+// splice pour supprimer le noms de toutes les pieces non abordales
+const noms = pieces.map(piece=>piece.nom);
+for(let i=pieces.length-1 ;i >= 0 ; i--){
+    if(pieces[i].prix > 35){
+        noms.splice(i , 1)
+    }
+}
+console.log(noms)
+
+// creation de la liste 
+const abordableElement = document.createElement("ul");
+// Ajout de chaque nom à la liste
+for(let i = 0 ; i < noms.length ; i ++){
+    const nomElement = document.createElement("li");
+    nomElement.innerText = noms[i];
+    abordableElement.appendChild(nomElement)
+};
+
+// Ajout de l'en-tête puis de la liste au bloc résultats filtres
+document.querySelector('.abordable')
+   .appendChild(abordableElement);
+
+   const nomDisponible = pieces.map(piece=>piece.nom);
+   const prixDiponible = pieces.map(piece=>piece.prix);
+
+   for(let i = pieces.length-1; i>=0 ;i--){
+    if(pieces[i].disponibilite===false){
+        nomDisponible.splice(i , 1)
+        prixDiponible.splice(i , 1)
+    }
+   };
+
+   const disponibleElement=document.createElement("ul");
+   for(let i =0;i < nomDisponible.length ; i++){
+     const nomElement = document.createElement("li")
+     nomElement.innerText = `${nomDisponible[i]} - ${prixDiponible[i]} dt `
+     disponibleElement.appendChild(nomElement)
+   };
+   document.querySelector(".P-disponible").appendChild(disponibleElement);
+
+
+  
+
+
+
 
